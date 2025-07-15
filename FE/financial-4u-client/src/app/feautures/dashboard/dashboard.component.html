@@ -1,0 +1,393 @@
+<header class="dashboard-header">
+  <div class="header-logo"></div>
+  <nav class="header-menu">
+    <a href="/home/dashboard" >Home</a>
+    <a href="/home/investments" >Transazioni e saldo</a>
+    <a href="#" (click)="openProfileModal($event)">Profilo</a>
+    <a href="#">Logout</a>
+  </nav>
+</header>
+
+<div id="rowMalefica" class="row p-3">
+  <div class="dashboard-tables-wrapper">
+    <div class="dashboard-tables-col">
+      <div class="top-tables-group">
+        <div class="mov-table-container highlight-table">
+          <div class="mov-table-title">
+            <span>Storico movimentazioni chiuse</span>
+          </div>
+          <div class="mov-table-scroll">
+            <table class="mov-table">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Asset</th>
+                  <th>Importo</th>
+                  <th>Variazione</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let mov of closedMovements">
+                  <td>{{ mov.date }}</td>
+                  <td>{{ mov.asset }}</td>
+                  <td>{{ mov.amount | currency:'EUR':'symbol':'1.2-2' }}</td>
+                  <td>
+                    <span [ngStyle]="{'color': mov.variation >= 0 ? '#4caf50' : '#f44336'}">
+                      {{ mov.variation | number:'1.2-2' }}%
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="mov-table-container highlight-table">
+          <div class="mov-table-title">
+            <span>Movimentazioni attive</span>
+          </div>
+          <div class="mov-table-scroll">
+            <table class="mov-table">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Asset</th>
+                  <th>Importo</th>
+                  <th>Variazione</th>
+                  <th>Azione</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let mov of activeMovements">
+                  <td>{{ mov.date }}</td>
+                  <td>{{ mov.asset }}</td>
+                  <td>{{ mov.amount | currency:'EUR':'symbol':'1.2-2' }}</td>
+                  <td>
+                    <span [ngStyle]="{'color': mov.variation >= 0 ? '#4caf50' : '#f44336'}">
+                      {{ mov.variation | number:'1.2-2' }}%
+                    </span>
+                  </td>
+                  <td>
+                    <button class="sell-btn" (click)="openSellModal(mov.asset)">Vendi</button>
+                  </td>
+                </tr>
+                <tr *ngIf="!activeMovements || activeMovements.length === 0">
+                  <td colspan="5" style="text-align:center; color:#888;">Nessuna movimentazione attiva disponibile</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="bottom-tables-group-2x2" style="display: flex; flex-direction: column; width: 100%; margin-top: 0; gap: 18px;">
+          <div style="width: 100%;">
+            <div class="mov-table-container secondary-table">
+              <div class="mov-table-title">
+                <span>Andamento Cryptovalute</span>
+              </div>
+              <div class="mov-table-scroll">
+                <table class="mov-table">
+                  <thead>
+                    <tr>
+                      <th>Symbol</th>
+                      <th>Data/Ora</th>
+                      <th>Prezzo</th>
+                      <th style="text-align: right; min-width: 120px;">Azioni</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let crypto of cryptos">
+                      <td>{{ crypto.symbol }}</td>
+                      <td>{{ crypto.date }}</td>
+                      <td>
+                        <span *ngIf="crypto.price !== null">{{ crypto.price | currency:'USD':'symbol':'1.2-2' }}</span>
+                        <span *ngIf="crypto.price === null">-</span>
+                      </td>
+                      <td style="text-align: right; min-width: 120px; display: flex; justify-content: flex-end; gap: 6px; align-items: center;">
+                        <button class="buy-btn" (click)="openBuyModal(crypto.symbol)">Compra</button>
+                        <button class="sell-btn" (click)="openSellModal(crypto.symbol)">Vendi</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div style="width: 100%;">
+            <div class="mov-table-container secondary-table">
+              <div class="mov-table-title">
+                <span>Andamento S&amp;P500 / Nasdaq</span>
+              </div>
+              <div class="mov-table-scroll">
+                <table class="mov-table">
+                  <thead>
+                    <tr>
+                      <th>Symbol</th>
+                      <th>Data/Ora</th>
+                      <th>Prezzo</th>
+                      <th style="text-align: right; min-width: 120px; margin-right: 18px;">Azioni</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of sp500Rows">
+                      <td>{{ row.symbol }}</td>
+                      <td>{{ row.date }}</td>
+                      <td>
+                        <span *ngIf="row.currentValue !== null">{{ row.currentValue | currency:'USD':'symbol':'1.2-2' }}</span>
+                        <span *ngIf="row.currentValue === null">-</span>
+                      </td>
+                      <td style="text-align: right; min-width: 120px; display: flex; justify-content: flex-end; gap: 6px; align-items: center;">
+                        <button class="buy-btn" (click)="openBuyModal(row.symbol)">Compra</button>
+                        <button class="sell-btn" (click)="openSellModal(row.symbol)">Vendi</button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="!sp500Rows || sp500Rows.length === 0">
+                      <td>S&amp;P500</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>
+                        <button class="buy-btn" disabled>Compra</button>
+                        <button class="sell-btn" disabled>Vendi</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-tables-group-2x2" style="display: flex; gap: 18px;">
+        <div style="flex: 1 1 0; min-width: 260px; order: 2;">
+          <div class="mov-table-container secondary-table">
+            <div class="mov-table-title">
+              <span>Andamento NYMEX/COMEX</span>
+            </div>
+            <div class="mov-table-scroll">
+              <table class="mov-table">
+                <thead>
+                  <tr>
+                    <th>Symbol</th>
+                    <th>Data/Ora</th>
+                    <th>Prezzo</th>
+                    <th style="text-align: right; min-width: 120px;">Azioni</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let metal of metals">
+                    <td>{{ metal.symbol }}</td>
+                    <td>{{ metal.date }}</td>
+                    <td>
+                      <span *ngIf="metal.price !== null && metal.price !== undefined">{{ metal.price | number:'1.3-3' }} USD/g</span>
+                      <span *ngIf="metal.price === null || metal.price === undefined">-</span>
+                    </td>
+                    <td style="text-align: right; min-width: 120px; display: flex; justify-content: flex-end; gap: 6px; align-items: center;">
+                      <button class="buy-btn" (click)="openBuyModal(metal.symbol)">Compra</button>
+                      <button class="sell-btn" (click)="openSellModal(metal.symbol)">Vendi</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-chart-col" style="padding-right: 32px; flex: 1 1 0; min-width: 0; max-width: 68%; width: 100%; margin-right: 24px;">
+      <div class="mov-table-container chart-table full-width-chart">
+        <div class="mov-table-title">
+          <span>Andamento Mercato: verifica il tuo asset</span>
+        </div>
+        <div class="chart-content">
+          <app-dynamic-chart (assetChange)="onAssetChange($event)" (assetPriceChange)="onAssetPriceChange($event.price, $event.allPrices)"></app-dynamic-chart>
+        </div>
+      </div>
+      <div class="mov-table-container secondary-table full-width-chart" style="margin-top: 38px;">
+        <div class="mov-table-title" style="text-align: left;">
+          <span>Notizie Finanziarie</span>
+        </div>
+        <div class="news-list" style="padding: 16px 0 16px 0; text-align: left;">
+          <div *ngFor="let news of newsList" class="news-item" style="margin-bottom: 18px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+            <a [href]="news.url" target="_blank" style="text-decoration:none; color:inherit;">
+              <div class="news-title" style="font-weight: bold; font-size: 1.08em;">{{ news.source }}</div>
+              <div class="news-source" style="color: #fff; font-size: 1.01em; font-weight: 400; margin-bottom: 2px;">{{ news.title }}</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="buyModalLabel">Acquista {{ buyCryptoName | titlecase }}</h1>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onBuySubmit()">
+          <div class="inputGroup">
+            <input type="number" min="1" required autocomplete="off" placeholder=" " [(ngModel)]="buyAmount" name="buyAmount" />
+            <label>Importo in €</label>
+          </div>
+          <div class="inputGroup">
+            <input type="text" readonly [value]="getBuyEquivalent()" />
+            <label>Equivalente {{ buyCryptoName | titlecase }}</label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="ghost-btn" data-bs-dismiss="modal">Annulla</button>
+            <button class="ghost-btn" type="submit">
+              Conferma
+              <div class="arrow-wrapper">
+                <div class="arrow"></div>
+              </div>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="sellModal" tabindex="-1" aria-labelledby="sellModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="sellModalLabel">Vendi {{ sellCryptoName | titlecase }}</h1>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onSellSubmit()">
+          <div class="inputGroup">
+            <label>Totale posseduto: <b>{{ getTotalOwned(sellCryptoName) }}</b> {{ sellCryptoName | uppercase }}</label>
+          </div>
+          <div class="inputGroup">
+            <label>Quanto vuoi vendere?</label>
+            <input type="range" min="0" [max]="getTotalOwned(sellCryptoName)" step="0.000001" [(ngModel)]="sellAmount" name="sellAmount" />
+            <span>{{ sellAmount || 0 }} {{ sellCryptoName | uppercase }}</span>
+          </div>
+          <div class="inputGroup">
+            <input type="text" readonly [value]="getSellEquivalent()" />
+            <label>Equivalente in €</label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="ghost-btn" data-bs-dismiss="modal">Annulla</button>
+            <button class="ghost-btn" type="submit">
+              Conferma
+              <div class="arrow-wrapper">
+                <div class="arrow"></div>
+              </div>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="profileModalLabel">Profilo Utente</h1>
+      </div>
+      <div class="modal-body">
+        <form autocomplete="off">
+          <div class="row">
+            <div class="col">
+              <div class="inputGroup">
+                <input type="text" required autocomplete="off" placeholder=" " [(ngModel)]="mockProfile.name" name="profileName" [readonly]="!profileEditMode" />
+                <label>Nome</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="inputGroup">
+                <input type="text" required autocomplete="off" placeholder=" " [(ngModel)]="mockProfile.cognome" name="profileCognome" [readonly]="!profileEditMode" />
+                <label>Cognome</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="inputGroup">
+                <input type="text" required autocomplete="off" placeholder=" " [(ngModel)]="mockProfile.email" name="profileEmail" [readonly]="!profileEditMode" />
+                <label>Email</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="inputGroup">
+                <input type="text" required autocomplete="off" placeholder=" " [(ngModel)]="mockProfile.username" name="profileUsername" [readonly]="!profileEditMode" />
+                <label>Username</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="ghost-btn" data-bs-dismiss="modal">Chiudi</button>
+            <button type="button" class="ghost-btn" (click)="toggleProfileEdit()">
+              {{ profileEditMode ? 'Salva' : 'Modifica' }}
+              <div class="arrow-wrapper"><div class="arrow"></div></div>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .dashboard-tables-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+  }
+  .dashboard-tables-col {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 68%; 
+    margin-right: 24px;
+  }
+  .dashboard-chart-col {
+    flex: 0 0 32%;
+    min-width: 320px;
+    max-width: 420px;
+    padding-right: 32px;
+  }
+  .bottom-tables-group-2x2 {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    margin-bottom: 0;
+  }
+  .bottom-tables-group-2x2 > div {
+    flex: 1 1 0;
+    min-width: 180px;
+    max-width: 50%;
+  }
+  .mov-table-container.secondary-table {
+    font-size: 0.93em;
+    padding: 8px 6px 8px 6px;
+  }
+  .mov-table {
+    font-size: 0.95em;
+  }
+  .bottom-row {
+    margin-top: 14px;
+  }
+  @media (max-width: 1100px) {
+    .dashboard-tables-col {
+      max-width: 100%;
+    }
+    .dashboard-tables-wrapper {
+      flex-direction: column;
+    }
+    .dashboard-chart-col {
+      max-width: 100%;
+      padding-right: 0;
+    }
+    .bottom-tables-group-2x2 {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .bottom-tables-group-2x2 > div {
+      max-width: 100%;
+    }
+  }
+</style>

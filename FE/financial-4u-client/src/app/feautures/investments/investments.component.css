@@ -1,0 +1,177 @@
+.center-elem-col {
+  text-align: -webkit-center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.dashboard-header {
+  width: 100%;
+  height: 70px;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.header-logo {
+  width: 150px;
+  height: 100px;
+  background-image: url('C:/Users/marco/Desktop/Financial-App-main/assets/img/logo1.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+}
+
+.header-menu {
+  display: flex;
+  gap: 28px;
+}
+
+.header-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1em;
+  transition: color 0.2s;
+}
+
+.header-menu a:hover {
+  color: #ffd700;
+}
+
+body, .container, .col-12 {
+  padding-top: 70px !important;
+}
+
+.col-12 {
+  width: 100%;
+  max-width: 900px;
+  min-width: 400px;
+  margin: 0 auto;
+  padding-top: 80px;
+}
+
+.mov-table-container {
+  position: relative;
+  background: rgba(0,0,0,0.5);
+  border-radius: 0;
+  padding: 10px 10px 8px 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.highlight-table {
+  background: rgba(255,255,255,0.2);
+  border: 1.5px solid #000;
+  box-shadow: none;
+  color: #000;
+  padding: 18px 12px 12px 12px;
+  font-size: 0.98em;
+  min-height: 120px;
+}
+
+.mov-table-title {
+  font-size: 1.15em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left;
+  letter-spacing: 0.02em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px 8px 12px;
+  background: none;
+  border-radius: 0;
+  color: #222;
+}
+
+.btn-see-all {
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  padding: 4px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.64em;
+}
+
+.mov-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98em;
+  background: rgba(255,255,255,0.85);
+  color: #222;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.mov-table th,
+.mov-table td {
+  padding: 8px 12px;
+  font-size: 1em;
+  text-align: left;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.mov-table th {
+  background: #eaeaea;
+  color: #222;
+  font-weight: 700;
+}
+
+.mov-table td {
+  background: rgba(255,255,255,0.7);
+  color: #222;
+}
+
+.mov-table tr:last-child td {
+  border-bottom: none;
+}
+
+.investments-center-col > .card,
+.investments-center-col > .card.mb-0 {
+  background: rgba(0,0,0,0.7) !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
+  border: none !important;
+}
+.investments-center-col > .card .card-body,
+.investments-center-col > .card .card-body * {
+  background: transparent !important;
+  color: #fff !important;
+}
+.investments-center-col > .card .card-body h4,
+.investments-center-col > .card .card-body h5 {
+  color: #ffd700 !important;
+}
+.investments-center-col > .card .btn-see-all {
+  background-color: black !important;
+  color: white !important;
+  border: 1px solid black !important;
+}
+
+@media (max-width: 1100px) {
+  .col-12 {
+    max-width: 98vw;
+    min-width: 320px;
+  }
+  .mov-table-container, .highlight-table {
+    min-width: 0;
+    padding: 6px 4px 6px 4px;
+  }
+  .mov-table-title {
+    font-size: 1em;
+    padding: 6px 6px 6px 6px;
+  }
+}

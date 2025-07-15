@@ -1,0 +1,15 @@
+<div>
+  <label for="customAsset" class="text-white px-2">Seleziona un asset:</label>
+  <select id="customAsset" [(ngModel)]="selectedAsset" (change)="updateChart()">
+    <option *ngFor="let symbol of availableSymbols" [value]="symbol">
+      {{ symbol }}
+    </option>
+  </select>
+</div>
+
+<div
+  class="chart-container"
+  style="position: relative; height: 400px; width: 600px"
+>
+  <canvas id="dynamicChart"></canvas>
+</div>

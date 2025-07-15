@@ -1,0 +1,24 @@
+<body>
+  <!-- <header class="navbar">
+    <app-navbar></app-navbar>
+  </header> -->
+
+  <div class="container-fluid">
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <footer class="footer-carousel">
+    <div class="carousel-container">
+      <div class="carousel-track">
+        <ng-container *ngFor="let info of footerInfos">
+          <div class="carousel-slide">{{ info }}</div>
+        </ng-container>
+        <ng-container *ngFor="let info of footerInfos">
+          <div class="carousel-slide">{{ info }}</div>
+        </ng-container>
+      </div>
+    </div>
+  </footer>
+</body>

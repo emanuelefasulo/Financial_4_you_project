@@ -1,0 +1,5 @@
+com\financial\banking\controller\UserControllerTest.class
+com\financial\banking\controller\AccountControllerTest.class
+com\financial\banking\controller\AuthControllerTest.class
+com\financial\banking\controller\TransactionControllerTest.class
+com\financial\banking\controller\CardControllerTest.class

@@ -1,0 +1,120 @@
+<header class="dashboard-header">
+  <div class="header-logo"></div>
+  <nav class="header-menu">
+    <a href="/home/dashboard">Home</a>
+    <a href="/home/investments">Transazioni e saldo</a>
+    <a href="#">Profilo</a>
+    <a href="#">Logout</a>
+  </nav>
+</header>
+<div class="container-fluid" style="padding-top: 80px; padding-left: 0; margin-left: 0; max-width: none;">
+  <div class="row" style="justify-content: center; align-items: flex-start; gap: 0; margin-left: 0;">
+    <div class="col" style="flex:1 1 0; min-width: 0;"></div>
+    <div class="col-12 investments-center-col center-elem-col" style="max-width: 900px; min-width: 400px; margin-left: 0; margin-right: 0; display: flex; flex-direction: column; align-items: center; width: 100%;">
+      <div style="display: flex; gap: 24px; width: 100%; margin-bottom: 24px;">
+        <div class="card mb-0" style="flex: 1 1 0;">
+          <div class="card-body text-center">
+            <h4 class="mb-2">Saldo disponibile</h4>
+            <div style="font-size:2.2em; font-weight:bold; color:#ffd700;">
+              € 12.350,00
+            </div>
+          </div>
+        </div>
+        <div class="card mb-0" style="flex: 1 1 0;">
+          <div class="card-body">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <h5 class="mb-3" style="color:#222; margin-bottom: 0;">Carte collegate</h5>
+              <button class="btn-see-all" style="margin-left: 8px; color: #23242a; border: 1px solid #ccc;" data-bs-toggle="modal" data-bs-target="#cardsModal">Modifica</button>
+            </div>
+            <ul class="list-unstyled">
+              <li><i class="fas fa-credit-card"></i> Visa Classic <span style="float:right; color:#222;">**** 1234</span></li>
+              <li><i class="fas fa-credit-card"></i> Mastercard <span style="float:right; color:#222;">**** 5678</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="mov-table-container highlight-table" style="margin-bottom: 24px;">
+        <div class="mov-table-title">
+          <span>Ultime Transazioni</span>
+        </div>
+        <div class="mov-table-scroll">
+          <table class="mov-table">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Asset</th>
+                <th>Importo</th>
+                <th>Stato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mov of (activeMovements.concat(closedMovements))">
+                <td>{{ mov.date }}</td>
+                <td>{{ mov.asset }}</td>
+                <td>
+                  <span [ngStyle]="{'color': mov.variation < 0 ? '#f44336' : '#4caf50'}">
+                    {{ mov.amount | currency:'EUR':'symbol':'1.2-2' }}
+                  </span>
+                </td>
+                <td>
+                  <span class="badge" [ngClass]="{'bg-success': closedMovements.includes(mov), 'bg-warning': activeMovements.includes(mov)}">
+                    {{ closedMovements.includes(mov) ? 'Completato' : 'Aperta' }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col" style="flex:1 1 0; min-width: 0;"></div>
+  </div>
+</div>
+
+<!-- Modal modifica carte collegate -->
+<div class="modal fade" id="cardsModal" tabindex="-1" aria-labelledby="cardsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3" style="background: rgba(0,0,0,0.7); border-radius: 18px; color: #fff; border: none; box-shadow: 0 4px 32px rgba(0,0,0,0.25); backdrop-filter: blur(3px); min-width: 350px; max-width: 420px; margin: 0 auto;">
+      <div class="modal-header" style="border-bottom: none; padding-top: 28px; padding-bottom: 0;">
+        <h1 class="modal-title fs-5" id="cardsModalLabel" style="font-weight: 600; font-size: 1.35em; letter-spacing: 0.01em;">Modifica Carte Collegate</h1>
+      </div>
+      <div class="modal-body" style="padding-top: 10px; padding-bottom: 0;">
+        <form autocomplete="off" style="display: flex; flex-direction: column; gap: 18px;">
+          <!-- Carte esistenti -->
+          <div class="inputGroup" style="display: flex; align-items: center; gap: 10px;">
+            <input type="text" value="Visa Classic •••• 1234" readonly style="background: rgba(255,255,255,0.08); border-radius: 10px; border: 2px solid #fff; color: #fff; flex: 1;" />
+            <button type="button" class="ghost-btn" title="Rimuovi" style="color: #040404; font-size: 1.1em; padding: 2px 10px;">✕</button>
+          </div>
+          <div class="inputGroup" style="display: flex; align-items: center; gap: 10px;">
+            <input type="text" value="Mastercard •••• 5678" readonly style="background: rgba(255,255,255,0.08); border-radius: 10px; border: 2px solid #fff; color: #fff; flex: 1;" />
+            <button type="button" class="ghost-btn" title="Rimuovi" style="color: #000000; font-size: 1.1em; padding: 2px 10px;">✕</button>
+          </div>
+          <hr style="border-color: #444; margin: 0 0 8px 0;">
+          <!-- Aggiungi nuova carta -->
+          <div class="inputGroup">
+            <input type="text" maxlength="19" pattern="[0-9 ]*" placeholder="Numero carta" name="newCardNumber" required style="background: rgba(255,255,255,0.08); border-radius: 10px; border: 2px solid #fff; color: #fff;" />
+            <label>Numero carta</label>
+          </div>
+          <div class="inputGroup">
+            <input type="text" maxlength="26" placeholder="Intestatario" name="newCardHolder" required style="background: rgba(255,255,255,0.08); border-radius: 10px; border: 2px solid #fff; color: #fff;" />
+            <label>Intestatario</label>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <div class="inputGroup" style="flex:1;">
+              <input type="text" maxlength="5" pattern="[0-9/]*" placeholder="MM/AA" name="newCardExp" required style="background: rgba(255,255,255,0.08); border-radius: 10px; border: 2px solid #fff; color: #fff;" />
+              <label>Scadenza</label>
+            </div>
+            <div class="inputGroup" style="flex:1;">
+              <input type="password" maxlength="4" pattern="[0-9]*" placeholder="CVV" name="newCardCVV" required style="background: rgba(255,255,255,0.08); border-radius: 10px; border: 2px solid #fff; color: #fff;" />
+              <label>CVV</label>
+            </div>
+          </div>
+          <div class="modal-footer" style="display: flex; gap: 18px; justify-content: flex-end; background: transparent; border-top: none; box-shadow: none; padding: 0; margin-top: 8px;">
+            <button type="button" class="ghost-btn" data-bs-dismiss="modal">Chiudi</button>
+            <button type="submit" class="ghost-btn">Salva</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,198 @@
+<div class="logo-container"></div>
+<div id="containerId" class="container">
+  <div class="box">
+    <form (ngSubmit)="login()">
+      <div class="inputBox">
+        <input type="text" name="username" [(ngModel)]="username" required placeholder=" " />
+        <label>Username</label>
+      </div>
+      <div class="inputBox">
+        <input type="password" name="password" [(ngModel)]="password" required placeholder=" " />
+        <label>Password</label>
+      </div>
+      <div class="links">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#forgotModal" (click)="openForgotModal()">Forgot Password</a>
+      </div>
+      <div class="submit-row">
+        <button type="submit" class="ghost-btn">Login</button>
+        <span class="or-separator">or</span>
+        <button type="button" class="ghost-btn" data-bs-toggle="modal" data-bs-target="#registerModal">Sign up</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="registerModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Registrazione
+        </h1>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <div class="inputGroup">
+              <input
+                type="text"
+                required
+                autocomplete="off"
+                placeholder=" "
+                [(ngModel)]="registerData.user.name"
+              />
+              <label>Nome</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="inputGroup">
+              <input
+                type="text"
+                required
+                autocomplete="off"
+                placeholder=" "
+                [(ngModel)]="registerData.user.cognome"
+              />
+              <label>Cognome</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="inputGroup">
+              <input
+                type="text"
+                required
+                autocomplete="off"
+                placeholder=" "
+                [(ngModel)]="registerData.user.email"
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                title="Inserisci un indirizzo email valido"
+                name="registerEmail"
+              />
+              <label>Email</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="inputGroup">
+              <input
+                type="text"
+                required
+                autocomplete="off"
+                placeholder=" "
+                [(ngModel)]="registerData.username"
+              />
+              <label>Username</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="inputGroup">
+              <input
+                type="password"
+                required
+                autocomplete="off"
+                placeholder=" "
+                [(ngModel)]="registerData.password"
+              />
+              <label>Password</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="inputGroup">
+              <input
+                type="password"
+                required
+                autocomplete="off"
+                placeholder=" "
+                [(ngModel)]="registerData.password"
+              />
+              <label>Conferma password</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="inputGroup">
+              <label *ngIf="!registerData.user.secretQuestion" style="color:#fff; margin-bottom:4px;">Domanda segreta</label>
+              <select required [(ngModel)]="registerData.user.secretQuestion" name="secretQuestion" class="stylish-select">
+                <option value="" disabled selected>Seleziona una domanda segreta</option>
+                <option *ngFor="let q of secretQuestions" [value]="q">{{q}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col">
+            <div class="inputGroup">
+              <input type="text" required autocomplete="off" placeholder=" " [(ngModel)]="registerData.user.secretAnswer" name="secretAnswer" />
+              <label>Risposta</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="ghost-btn" data-bs-dismiss="modal">Annulla</button>
+        <button class="ghost-btn" (click)="onRegister()">
+          Sign in
+          <div class="arrow-wrapper">
+            <div class="arrow"></div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="forgotModal"
+  tabindex="-1"
+  aria-labelledby="forgotModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="forgotModalLabel">
+          Recupero Password
+        </h1>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onForgotSubmit()">
+          <div class="inputGroup">
+            <input type="email" required autocomplete="off" placeholder=" " [(ngModel)]="forgotEmail" name="forgotEmail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Inserisci un indirizzo email valido" />
+            <label>Email</label>
+          </div>
+          <div class="inputGroup">
+            <input type="text" required autocomplete="off" placeholder=" " [(ngModel)]="forgotQuestion" name="forgotQuestion" readonly />
+            <label>Domanda segreta</label>
+          </div>
+          <div class="inputGroup">
+            <input type="text" required autocomplete="off" placeholder=" " [(ngModel)]="forgotAnswer" name="forgotAnswer" />
+            <label>Risposta</label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="ghost-btn" data-bs-dismiss="modal">Annulla</button>
+            <button class="ghost-btn" type="submit">
+              Recupera
+              <div class="arrow-wrapper">
+                <div class="arrow"></div>
+              </div>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,453 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+app-login {
+  width: 100vh;
+  height: 100vh;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#containerId {
+  min-height: 100vh;
+  min-width: 100vw;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('C:\\Users\\marco\\Desktop\\Financial-App-main\\assets\\img\\img3.jpg'); 
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.box {
+  position: relative;
+  width: 380px;
+  height: 450px;
+  background: transparent; 
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.box form {
+  position: absolute;
+  inset: 0px;
+  background: rgba(0, 0, 0, 0.1); 
+  padding: 50px 40px;
+  border-radius: 8px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.box form h2 {
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+
+.box form .inputBox {
+  position: relative;
+  width: 300px;
+  margin-top: 35px;
+}
+
+.box form .inputBox input {
+  position: relative;
+  width: 100%;
+  padding: 20px 10px 10px;
+  background: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid currentColor;
+  box-shadow: none;
+  color: #fff;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.box form .inputBox span {
+  position: absolute;
+  left: 0;
+  padding: 20px 0px 10px;
+  pointer-events: none;
+  color: #8f8f8f;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+}
+
+.box form .inputBox input:valid ~ span,
+.box form .inputBox input:focus ~ span {
+  color: #fff;
+  font-size: 0.75em;
+  transform: translateY((-34px));
+}
+
+.box form .inputBox i {
+  display: none;
+}
+
+.box form .inputBox input:valid ~ i,
+.box form .inputBox input:focus ~ i {
+  display: none;
+}
+
+.box form .inputBox label {
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  color: #8f8f8f;
+  font-size: 1em;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.box form .inputBox input:focus ~ label,
+.box form .inputBox input:valid ~ label {
+  top: 0px;
+  left: 10px;
+  color: #fff;
+  font-size: 0.75em;
+  background: transparent;
+  padding: 0 2px;
+}
+
+.box form .links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.box form .links a {
+  margin: 10px 0;
+  font-size: 0.75em;
+  color: #8f8f8f;
+  text-decoration: none;
+}
+
+.box form .links a:hover,
+.box form .links a:nth-child(2) {
+  color: #fff;
+}
+
+#submit {
+  border: none;
+  outline: none;
+  padding: 9px 25px;
+  cursor: pointer;
+  font-size: 0.9em;
+  border-radius: 4px;
+  font-weight: 600;
+  width: 100px;
+  margin-top: 10px;
+}
+
+#submit:active {
+  opacity: 0.8;
+}
+
+.inputGroup {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 20px 10px 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  font-size: 1em;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.inputGroup label {
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  color: #8f8f8f;
+  font-size: 1em;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.inputGroup input:focus ~ label,
+.inputGroup input:not(:placeholder-shown) ~ label,
+.inputGroup input:valid ~ label {
+  top: 0px;
+  left: 10px;
+  color: #fff;
+  font-size: 0.75em;
+  background: transparent;
+  padding: 0 2px;
+}
+
+.inputGroup :is(input:focus, input:valid) ~ label {
+  transform: translateY(-50%) scale(0.9);
+  margin: 0em;
+  margin-left: 1.3em;
+  padding: 0.4em;
+}
+
+.inputGroup :is(input:focus, input:valid) {
+  border-color: rgb(150, 150, 200);
+}
+
+.modal-footer {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.modal-footer button {
+  border: 0;
+  border-radius: 20px;
+  color: #23242a;      
+  background: #fff;    
+  padding: 0.7em 2em;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  --secondary-color: #23242a !important;
+}
+
+.modal-footer button:hover {
+  background: #e6e6e6;
+  color: #23242a;
+}
+
+button {
+  --primary-color: #645bff;
+  --secondary-color: #fff;
+  --hover-color: #111;
+  --arrow-width: 10px;
+  --arrow-stroke: 2px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 20px;
+  color: var(--secondary-color);
+  padding: 1em 1.8em;
+  background: var(--primary-color);
+  display: flex;
+  transition: 0.2s background;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: bold;
+}
+
+button .arrow-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button .arrow {
+  margin-top: 1px;
+  width: var(--arrow-width);
+  background: transparent;
+  height: var(--arrow-stroke);
+  position: relative;
+  transition: 0.2s;
+}
+
+button .arrow::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  border: solid var(--secondary-color);
+  border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+  display: inline-block;
+  top: -3px;
+  right: 3px;
+  transition: 0.2s;
+  padding: 3px;
+  transform: rotate(-45deg);
+}
+
+button:hover {
+  background-color: var(--hover-color);
+}
+
+button:hover .arrow {
+  background: var(--secondary-color);
+}
+
+button:hover .arrow:before {
+  right: 0;
+}
+
+.submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 15px;
+}
+
+.submit-row button {
+  border: 0;
+  border-radius: 20px;
+  color: #23242a;          
+  background: #fff;         
+  padding: 0.7em 2em;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-row button:hover {
+  background: #e6e6e6;     
+  color: #23242a;
+}
+
+.or-separator {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 0 5px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: rgba(0, 0, 0, 0.6) !important; 
+  border-radius: 16px;
+  color: #fff;
+  border: none;
+  backdrop-filter: blur(2px);
+}
+
+.modal-header {
+  border-bottom: none !important;
+  padding-top: 24px;
+}
+.modal-footer {
+  display: flex;
+  gap: 24px; 
+  justify-content: flex-end;
+  background: transparent !important;
+  border-top: none !important;
+  box-shadow: none !important;
+}
+
+.modal-footer .cancel-btn {
+  border: 2px solid #fff;
+  border-radius: 20px;
+  color: #fff;
+  background: transparent;
+  padding: 0.7em 2em;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-footer .cancel-btn:hover {
+  background: #fff;
+  color: #23242a;
+  border-color: #fff;
+}
+
+.modal-title {
+  margin-bottom: 8px;
+}
+
+.ghost-btn {
+  border: 2px solid #fff;
+  border-radius: 20px;
+  color: #fff;
+  background: transparent;
+  padding: 0.7em 2em;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+}
+
+.ghost-btn:hover {
+  background: #fff;
+  color: #23242a;
+  border-color: #fff;
+}
+
+.logo-container {
+  position: absolute;
+  top: 20px;
+  right: -250px;
+  z-index: 100;
+  width: 900px;
+  height: 300px; 
+  background-image: url('C:\\Users\\marco\\Desktop\\Financial-App-main\\assets\\img\\logo2.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.inputGroup input[name="secretQuestion"],
+.inputGroup input[name="secretAnswer"] {
+  color: #fff;
+  border-bottom: 2px solid #fff;
+  background: transparent;
+}
+
+.stylish-select {
+  width: 100%;
+  padding: 14px 12px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  border: 2px solid #fff;
+  font-size: 1em;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.stylish-select:focus {
+  border-color: #fff;
+  box-shadow: 0 0 0 2px #fff4;
+}
+.stylish-select option {
+  background: #23242a;
+  color: #fff;
+}
+

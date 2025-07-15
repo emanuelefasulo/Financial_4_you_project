@@ -1,0 +1,337 @@
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+body {
+margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100vw;
+  background-image: url('C:\\Users\\marco\\Desktop\\Financial-App-main\\assets\\img\\dash7.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.content {
+  flex: 1;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+
+@keyframes rise {
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+app-root {
+    width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+}
+
+app-login {
+  text-align: -webkit-center;
+}
+
+html,
+body {
+ height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.container {
+  flex: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  width: 100%;
+}
+
+.container-fluid {
+  background: transparent !important;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 60px !important; 
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  padding-bottom: 60px !important; 
+}
+
+.box {
+  position: relative;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+@media (min-height: 900px) {
+  app-root {
+    min-height: 100vh;
+  }
+  
+  html, body {
+    height: auto;
+    min-height: 100vh;
+  }
+}
+
+.dashboard-header {
+  z-index: 99999 !important;
+  pointer-events: auto !important;
+}
+
+.footer-carousel {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 99999 !important;
+  background: rgba(0,0,0,0.96);
+  box-shadow: 0 -2px 24px rgba(0,0,0,0.35);
+  pointer-events: auto !important;
+}
+
+
+.mov-table-container,
+.highlight-table,
+.secondary-table {
+  z-index: 10 !important;
+}
+
+#rowMalefica, .dashboard-tables-wrapper, .dashboard-tables-col, .top-tables-group, .full-width-chart, .bottom-tables-group-2x2 {
+  position: relative;
+  z-index: 1 !important;
+}
+
+.bottom-tables-group-2x2 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 0;
+  gap: 18px;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+}
+
+.dashboard-chart-col .mov-table-container.secondary-table.full-width-chart {
+    margin-top: 64px !important;
+  }
+  .dashboard-chart-col .chart-table.full-width-chart + .mov-table-container.secondary-table.full-width-chart {
+    margin-top: 64px !important;
+  }
+
+#profileModal .modal-content {
+  max-width: 900px;
+  min-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.6) !important;
+  border-radius: 16px;
+  color: #fff;
+  border: none;
+  backdrop-filter: blur(2px);
+  font-size: 1em;
+  z-index: 999999 !important;
+}
+#profileModal {
+  z-index: 999999 !important;
+}
+#profileModal .modal-header {
+  border-bottom: none !important;
+  padding-top: 24px;
+}
+#profileModal .modal-title {
+  font-size: 1.25em;
+  margin-bottom: 8px;
+}
+#profileModal .modal-footer {
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+  background: transparent !important;
+  border-top: none !important;
+  box-shadow: none !important;
+}
+#profileModal .ghost-btn {
+  border: 2px solid #fff;
+  border-radius: 20px;
+  color: #fff;
+  background: transparent;
+  padding: 0.7em 2em;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+}
+#profileModal .ghost-btn:hover {
+   background: #fff;
+  color: #23242a;
+  border-color: #fff;
+}
+#profileModal .inputGroup {
+  position: relative;
+  margin-bottom: 24px;
+}
+#profileModal .inputGroup input {
+  width: 100%;
+  padding: 20px 10px 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  font-size: 1em;
+  outline: none;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+#profileModal .inputGroup label {
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  color: #8f8f8f;
+  font-size: 1em;
+  pointer-events: none;
+  transition: 0.3s;
+  background: transparent;
+  padding: 0 2px;
+  z-index: 2;
+}
+#profileModal .inputGroup input:focus ~ label,
+#profileModal .inputGroup input:not(:placeholder-shown) ~ label,
+#profileModal .inputGroup input:valid ~ label {
+  top: 0px;
+  left: 10px;
+  font-size: 0.75em;
+  background: #23242a;
+  padding: 0 4px;
+  z-index: 3;
+}
+#profileModal .inputGroup input:focus ~ label {
+  color: #fff;
+}
+#profileModal .inputGroup input:disabled ~ label {
+  color: #aaa;
+}
+#profileModal .inputGroup input {
+  background-clip: padding-box;
+}
+@media (max-width: 1100px) {
+  #profileModal .modal-content {
+    max-width: 98vw;
+    min-width: 0;
+    width: 100%;
+    font-size: 0.98em;
+    padding: 8px 2vw;
+  }
+  #profileModal .inputGroup input {
+    font-size: 0.98em;
+    padding: 16px 6px 8px;
+  }
+  #profileModal .modal-title {
+    font-size: 1.1em;
+  }
+}
+
+
+.investments-center-col > .card,
+.investments-center-col > .mov-table-container {
+  width: 100%;
+  max-width: 900px;
+  min-width: 400px;
+  margin-left: 0;
+  margin-right: 0;
+}
+.investments-center-col > .card {
+  background: rgba(0,0,0,0.7) !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
+  border: none !important;
+}
+
+.investments-center-col > .card .card-body h5 {
+  color: #ffd700 !important;
+}
+.investments-center-col > .card .btn-see-all {
+  background-color: black !important;
+  color: white !important;
+  border: 1px solid black !important;
+}
+.investments-center-col > .mov-table-container {
+  background: rgba(0,0,0,0.7) !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
+  border: none !important;
+}
+.investments-center-col > .mov-table-container .mov-table-title {
+  background: none !important;
+  color: #ffd700 !important;
+  border-radius: 0 !important;
+}
+.investments-center-col > .mov-table-container .mov-table {
+  background: transparent !important;
+  color: #fff !important;
+}
+.investments-center-col > .mov-table-container .mov-table th {
+  background: rgba(0,0,0,0.85) !important;
+  color: #ffd700 !important;
+}
+.investments-center-col > .mov-table-container .mov-table td {
+  background: rgba(0,0,0,0.5) !important;
+  color: #fff !important;
+}
+.investments-center-col > .mov-table-container .mov-table tr:last-child td {
+  border-bottom: none;
+}
+@media (max-width: 1100px) {
+  .investments-center-col > .card,
+  .investments-center-col > .mov-table-container {
+    max-width: 98vw;
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+
+.card {
+  --bs-card-bg: rgba(0,0,0,0.7) !important;
+  background: rgba(0,0,0,0.7) !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25) !important;
+  border: none !important;
+}
+.card .card-body, .card .card-body * {
+  background: transparent !important;
+  color: #fff !important;
+}
+.card .card-body h4, .card .card-body h5 {
+  color: #ffd700 !important;
+}

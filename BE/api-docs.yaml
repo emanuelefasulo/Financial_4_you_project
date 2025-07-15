@@ -1,0 +1,400 @@
+openapi: 3.1.0
+info:
+  title: My API
+  description: Descrizione dell'API
+  version: "1.0"
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+security:
+- bearerAuth: []
+paths:
+  /api/public/insert-account:
+    post:
+      tags:
+      - account-controller
+      operationId: createAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Account"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Account"
+  /api/private/update-balance:
+    post:
+      tags:
+      - card-controller
+      operationId: updateCard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Card"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/private/pay-finanziamento:
+    post:
+      tags:
+      - finanziamenti-controller
+      operationId: payRata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+              format: int64
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/private/insert-transaction:
+    post:
+      tags:
+      - transaction-controller
+      operationId: insertTransaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Transaction"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Transaction"
+  /api/private/insert-transaction-positive:
+    post:
+      tags:
+      - transaction-controller
+      operationId: insertTransactionPositive
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Transaction"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Transaction"
+  /api/private/insert-finanziamento:
+    post:
+      tags:
+      - finanziamenti-controller
+      operationId: insertFinanziamento
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FinaziamentoRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/auth/login:
+    post:
+      tags:
+      - auth-controller
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+  /api/private/user/{id}:
+    get:
+      tags:
+      - user-controller
+      operationId: getUserById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+  /api/private/get-news:
+    get:
+      tags:
+      - news-controller
+      operationId: getNews
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/News"
+  /api/private/get-card:
+    get:
+      tags:
+      - card-controller
+      operationId: getUserById_1
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Card"
+  /api/private/finanziamento:
+    get:
+      tags:
+      - finanziamenti-controller
+      operationId: getFinanziamentoById
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Finanziamenti"
+  /api/private/delete-transaction:
+    delete:
+      tags:
+      - transaction-controller
+      operationId: deleteTransaction
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        password:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+    Card:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        type:
+          type: string
+          enum:
+          - VIRTUAL
+          - DEBIT
+          - PREPAID
+        balance:
+          type: number
+          format: double
+        user:
+          $ref: "#/components/schemas/User"
+        finanziamenti:
+          $ref: "#/components/schemas/Finanziamenti"
+        transactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Transaction"
+    Finanziamenti:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        capitale:
+          type: number
+          format: double
+        totRate:
+          type: integer
+          format: int32
+        ratePagate:
+          type: integer
+          format: int32
+        costoMensile:
+          type: integer
+          format: int32
+        user:
+          $ref: "#/components/schemas/User"
+        card:
+          $ref: "#/components/schemas/Card"
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+        description:
+          type: string
+        categoria:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        card:
+          $ref: "#/components/schemas/Card"
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+        cognome:
+          type: string
+        iban:
+          type: string
+        cards:
+          type: array
+          items:
+            $ref: "#/components/schemas/Card"
+        finanziamenti:
+          $ref: "#/components/schemas/Finanziamenti"
+        account:
+          $ref: "#/components/schemas/Account"
+        random:
+          type: object
+          properties:
+            seed:
+              type: integer
+              format: int64
+              writeOnly: true
+            deprecated:
+              type: boolean
+    FinaziamentoRequest:
+      type: object
+      properties:
+        capitale:
+          type: number
+          format: double
+        totRate:
+          type: integer
+          format: int32
+        ratePagate:
+          type: integer
+          format: int32
+        costoMensile:
+          type: integer
+          format: int32
+        userId:
+          type: integer
+          format: int64
+        cardId:
+          type: integer
+          format: int64
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        userId:
+          type: integer
+          format: int64
+    News:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        imgUrl:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

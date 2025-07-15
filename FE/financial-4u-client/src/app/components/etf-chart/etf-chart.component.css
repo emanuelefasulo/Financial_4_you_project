@@ -1,0 +1,6 @@
+.center-elem-col {
+  text-align: -webkit-center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
